@@ -563,8 +563,9 @@ void write_cb(struct ev_loop *loop, struct ev_io *w, int revents)
             }
             //free(buff);
         } 
-        else if (PyIter_Check(cli->response_content_obj)) //we treat Iterator object
+        else if (cli->response_content_obj != NULL && PyIter_Check(cli->response_content_obj))
         {
+            //we treat Iterator object
             cli->response_iter_sent++;
             PyObject *pyelem = cli->response_content;
             if (pyelem == NULL) 
